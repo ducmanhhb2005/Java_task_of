@@ -1,0 +1,137 @@
+import java.util.*;
+public class Main
+{
+    public static boolean[] prime=new boolean[10000000+1];
+    //Arrays.fill(prime,true);
+    public static void sang(){
+        Arrays.fill(prime,true);
+        prime[0]=false;
+        prime[1]=false; prime[2]=true;
+        
+        for (int i=2; i<=(int)Math.sqrt(10000000);i++){
+            for (int j=i*i; j<=10000000; j=j+i){
+                prime[j]=false;
+            }
+        }
+    }
+    public static boolean symetric(int[] a, int left, int right){
+        if (left>right) return false;
+        else if (left==right) return true;
+        else if (right==left+1&&a[left]==a[right]) return true;
+        else{
+        if (a[left]!=a[right]) return false;
+        else return symetric(a,left+1, right-1);
+        }
+    }
+	public static void main(String[] args) {
+	Scanner sc=new Scanner(System.in);	
+	int n=sc.nextInt();
+	int[] a=new int[n];
+	for (int i=0; i<n; i++){
+	    a[i]=sc.nextInt();
+	}
+	int max=-999999; int maxindex=0;
+	int min=999999; int minindex=0;
+	for (int i=n-1; i>=0; i--){
+	    if (min>a[i]) {min=a[i];
+	    minindex=i;
+	    }
+	}
+	for (int i=0; i<n; i++){
+	    if (max<a[i]) {max=a[i];
+	    maxindex=i;
+	    }
+	}
+	System.out.println(max+" "+maxindex);
+	System.out.println(min+" "+minindex);
+	sang();
+	int cnt=0;
+	for (int i=0; i<n; i++){
+	    if (prime[a[i]]==true) cnt++;
+	}
+	System.out.println(cnt);
+	//int k=0;
+	int maxoff=-99999; int minoff=99999;
+	//for (k=0; k<n && k!=maxindex; k++){
+	    //if (a[k]>maxoff) maxoff=a[k];
+//	} //gay
+	for (int i=0; i<n; i++){
+	    if (a[i]>maxoff&&i!=maxindex) maxoff=a[i];
+	}
+	for (int i=0; i<n; i++){
+	    if (a[i]<minoff&&i!=minindex) minoff=a[i];
+	}
+	System.out.println(Math.max(min*minoff,max*maxoff));
+//	System.out.println(k);
+	if (symetric(a,0,n-1)==true) System.out.println("YES");
+	else System.out.println("NO");
+	long tich=1;
+	for (int i=0; i<n; i++){
+	    a[i]=a[i]%(1000000007);
+	    tich=(tich*a[i])%(1000000007);
+	   // System.out.println(a[i]+" "+tich);
+	}
+	System.out.println(tich);
+	}
+}
+//FIXED WITH 1 LOOP
+import java.util.*;
+public class Main
+{
+    public static boolean[] prime=new boolean[10000000+1];
+    //Arrays.fill(prime,true);
+    public static boolean soNguyenTo(int n){
+        for (int i=2; i<=(int)Math.sqrt(n);i++){
+            if (n%i==0) return false;
+        }
+        return n>1;
+    }
+    public static boolean symetric(int[] a, int left, int right){
+        if (left>right) return false;
+        else if (left==right) return true;
+        else if (right==left+1&&a[left]==a[right]) return true;
+        else{
+        if (a[left]!=a[right]) return false;
+        else return symetric(a,left+1, right-1);
+        }
+    }
+	public static void main(String[] args) {
+	Scanner sc=new Scanner(System.in);	
+	int n=sc.nextInt();
+	int cnt=0;
+	int[] a=new int[n];
+	for (int i=0; i<n; i++){
+	    a[i]=sc.nextInt();
+	}
+	long tich=1;
+	int max=-999999; int maxindex=0;
+	int min=999999; int minindex=0;
+	int maxoff=-99999; int minoff=99999;
+	for (int i=0; i<n; i++){
+	    if (max<a[i]) {
+	        maxoff=max;
+	        max=a[i];
+	    maxindex=i;
+	    }
+	    else if (maxoff>a[i]) maxoff=a[i];
+	    if (min>=a[i]) {
+	        maxoff=min;
+	        min=a[i];
+	        minindex=i;
+	    }
+	    else if(minoff>a[i]) minoff=a[i];
+	    if (prime[a[i]]==true) cnt++;
+	     a[i]=a[i]%(1000000007);
+	    tich=(tich*a[i])%(1000000007);
+	}
+	System.out.println(max+" "+maxindex);
+	System.out.println(min+" "+minindex);
+	System.out.println(Math.max(min*minoff,max*maxoff));
+//	System.out.println(k);
+	if (symetric(a,0,n-1)==true) System.out.println("YES");
+	else System.out.println("NO");
+	
+	
+	System.out.println(tich);
+	}
+}
