@@ -1,0 +1,185 @@
+//Cach 1 : Dung TreeSet
+import java.util.*;
+public class Main
+{
+    //>O(m+n)
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		int m=sc.nextInt();
+		int[] a=new int[n];
+		int[] b=new int[m];
+		for (int i=0; i<n; i++) a[i]=sc.nextInt();
+		for (int i=0; i<m; i++) b[i]=sc.nextInt();
+		//Set dung hop 
+		//Giao dung binh thuong
+		TreeSet<Integer> arr1=new TreeSet<Integer>();
+		TreeSet<Integer> arr2=new TreeSet<Integer>();
+		TreeSet<Integer> arr3=new TreeSet<Integer>();
+		for (int i=0; i<n; i++) {arr1.add(a[i]);
+		arr3.add(a[i]);
+		}
+		for (int i=0; i<m; i++) {arr2.add(b[i]);
+		arr3.add(b[i]);
+		}
+		ArrayList<Integer> list1=new ArrayList<>(arr1);
+		ArrayList<Integer> list2=new ArrayList<>(arr2);
+		ArrayList<Integer> list3=new ArrayList<>(arr3);
+		int bot=0;
+		int top=0;
+		while (top<n&&bot<m){
+		    if (list1.get(top)==list2.get(bot)) {System.out.print(list1.get(top)+" ");
+		    top++; bot++;
+		    }
+		    else if (list1.get(top)<list2.get(top)) top++;
+		    else bot++;
+		}
+  
+
+		System.out.print("\n");
+		for (int x:list3) System.out.print(x+" ");
+		
+		
+	}
+}
+//Cach 2: mang danh dau
+//Cach 2: Mang danh dau O(10^7)
+import java.util.*;
+public class Main
+{
+    //
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		int m=sc.nextInt();
+		int[] a=new int[n];
+		int[] b=new int[m];
+		for (int i=0; i<n; i++) a[i]=sc.nextInt();
+		for (int i=0; i<m; i++) b[i]=sc.nextInt();
+		int[] file=new int[10000001];
+		for (int i=0; i<n; i++){
+		    file[a[i]]=-1;
+		}
+		for (int i=0; i<m; i++){
+		    if (file[b[i]]==-1) file[b[i]]=2;
+		    else if (file[b[i]]!=2) file[b[i]]=1;
+		}
+		for (int i=0; i<10000000; i++){
+		    if (file[i]==2) System.out.print(i+" ");
+		}
+		System.out.print("\n");
+		for (int i=0; i<10000000; i++){
+		    if (file[i]!=0) System.out.print(i+" ");
+		}
+		
+		
+	}
+}
+//Mo rong: Vay neu cac so nguyen co ca so am thi sao???
+import java.util.*;
+public class Main
+{
+    //O(m+n)
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		int m=sc.nextInt();
+		int[] a=new int[n];
+		int[] b=new int[m];
+		for (int i=0; i<n; i++) a[i]=sc.nextInt();
+		for (int i=0; i<m; i++) b[i]=sc.nextInt();
+		//Set dung hop 
+		//Giao dung binh thuong
+		ArrayList<Integer> arr1=new ArrayList<Integer>();
+		ArrayList<Integer> arr2=new ArrayList<Integer>();
+		for (int i=0; i<n; i++) {arr1.add(a[i]);
+		}
+		for (int i=0; i<m; i++) {arr2.add(b[i]);
+		}
+		int bot=0;
+		int top=0;
+		while (top<n&&bot<m){
+		    if (arr1.get(top)==arr2.get(bot)) {System.out.print(arr1.get(top)+" ");
+		    top++; bot++;
+		    }
+		    else if (arr1.get(top)<arr2.get(top)) top++;
+		    else bot++;
+		}
+        System.out.print("\n");
+        ArrayList<Integer> arr3=new ArrayList<Integer>();
+        bot=0; top =0;
+        while (top<n&&bot<m){
+            if (arr1.get(top)==arr2.get(bot)) {arr3.add(arr1.get(top));
+            bot++; top++;
+            }
+            else if (arr1.get(top)<arr2.get(bot)) {
+                arr3.add(arr1.get(top));
+                top++;
+            }
+            else {
+                arr3.add(arr2.get(bot));
+                bot++;
+                
+            }
+        }
+        while (top<n) {
+            arr3.add(arr1.get(top));
+            top++;
+        }
+        while (bot<n) {
+            arr3.add(arr2.get(bot));
+            bot++;
+        }
+		for (int x:arr3) System.out.print(x+" ");
+		
+		
+	}
+}
+//Cai tien bot vong lap di
+import java.util.*;
+public class Main
+{
+    //O(m+n)
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		int m=sc.nextInt();
+		int[] a=new int[n];
+		int[] b=new int[m];
+		for (int i=0; i<n; i++) a[i]=sc.nextInt();
+		for (int i=0; i<m; i++) b[i]=sc.nextInt();
+		//Set dung hop 
+		//Giao dung binh thuong
+		ArrayList<Integer> giao=new ArrayList<Integer>();
+		ArrayList<Integer> hop=new ArrayList<Integer>();
+       int bot=0;  int top =0;
+        while (top<n&&bot<m){
+            if (a[top]==b[bot]) {hop.add(a[top]);
+            giao.add(a[top]);
+            bot++; top++;
+            }
+            else if (a[top]<b[bot]) {
+                hop.add(a[top]);
+                top++;
+            }
+            else {
+                hop.add(b[bot]);
+                bot++;
+                
+            }
+        }
+        while (top<n) {
+            hop.add(a[top]);
+            top++;
+        }
+        while (bot<n) {
+            hop.add(b[bot]);
+            bot++;
+        }
+		for (int x:hop) System.out.print(x+" ");
+		System.out.print("\n");
+		for (int x:giao) System.out.print(x+" ");
+		
+		
+	}
+}
