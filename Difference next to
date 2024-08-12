@@ -1,0 +1,63 @@
+import java.util.*;
+import java.util.Map.Entry;
+public class Main
+{
+//O(n)
+	public static void main(String[] args) {
+	Scanner sc=new Scanner(System.in);
+	int n=sc.nextInt();
+	int[] a=new int[n];
+	for (int i=0; i<n;i++) a[i]=sc.nextInt();
+	int[] mark=new int[n];
+	mark[0]=0;
+	for (int i=1; i<n; i++){
+	    if (a[i]!=a[i-1]) mark[i]=mark[i-1];
+	    else mark[i]=mark[i-1]+1;
+	}   //O(n)
+	HashMap<Integer,Integer> map=new HashMap<Integer,Integer>();
+	for (int i=0; i<n; i++){   //O(n)
+	    int x=mark[i];
+	    if (map.containsKey(x)){
+	        int y=map.get(x);
+	        y++;
+	        map.put(x,y);
+	    }
+	    else map.put(x,1);
+	}
+	//Duyet map de tim thang co Value cao nhat 
+	int max=-(int)1e9;
+	Set<Map.Entry<Integer,Integer>> set=map.entrySet();
+	for (Map.Entry<Integer,Integer> x:set){
+	    if (max<x.getValue()) max=x.getValue();
+	}
+	//tim duoc max roi 
+	ArrayList<Integer> arr=new ArrayList<Integer>();
+	for (Map.Entry<Integer,Integer> x:set){
+	    if (max==x.getValue()) arr.add(x.getKey());
+	}
+	int k=0;
+	int[][] newt=new int[arr.size()][max];
+	for (int i=0; i<arr.size();i++){
+	    for (int j=0; j<max; j++){
+	        while (mark[k]!=arr.get(i)) k++;
+	        if (mark[k]==arr.get(i)) newt[i][j]=a[k++];
+	       }
+	    }
+	int ki=0;
+	 int maxoff=-(int)(1e9);
+	for (int i=0; i< arr.size();i++){
+	   int cnt=0;
+	    for (int j=0; j<max ;j++){
+	      cnt+=newt[i][j];  
+	    }
+	    if (maxoff<cnt){
+	        maxoff=cnt;
+	        ki=i;
+	    }
+	}
+     for (int i=0; i<max; i++){
+	    System.out.print(newt[ki][i]+" ");
+	}
+	}
+}
+// Cách 2:
