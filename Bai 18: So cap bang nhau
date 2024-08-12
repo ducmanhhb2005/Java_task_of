@@ -1,0 +1,28 @@
+import java.util.*;
+import java.util.Map.Entry;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		Integer[] a=new Integer[n];
+		for (int i=0; i<n; i++) a[i]=sc.nextInt();
+		HashMap<Integer,Integer> map=new HashMap<>();
+		for (int i=0 ;i < n; i++){
+		    Integer x=a[i];
+		    if (map.containsKey(x)){
+		        //map.get(x)=map.get(x)+1;
+		        Integer y=map.get(x);
+		        y++;
+		        map.put(x,y);
+		    }
+		    else map.put(x,1);
+		}
+		long cnt=0;
+		Set<Map.Entry<Integer,Integer>> set=map.entrySet();
+		for (Map.Entry<Integer,Integer> x:set){
+		    if (x.getValue()>1) cnt+=(1l*x.getValue())*(1l*x.getValue()-1)/2;
+		}
+		System.out.print(cnt);
+		}
+}
