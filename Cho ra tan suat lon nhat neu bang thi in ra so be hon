@@ -1,0 +1,68 @@
+//C1: Tree Map
+//O(nlogn)
+import java.util.*;
+import java.util.Map.Entry;
+public class Main{
+
+public static void main(String[] args){
+	Scanner sc=new Scanner(System.in);
+	int n=sc.nextInt();
+	long[] a=new long[n];
+	TreeMap<Long,Integer> map=new TreeMap<Long,Integer>();
+	for (int i=0; i<n; i++) {a[i]=sc.nextInt();
+	if (map.containsKey(a[i])){
+	    int x=map.get(a[i]);
+	    x++;
+	    map.put(a[i],x);
+	}
+	else map.put(a[i],1);
+	}
+	//TreeMap<Integer,Integer> map=new TreeMap<Integer,Integer>();
+	int max=-(int)1e9;
+	long key=0;
+	Set<Map.Entry<Long,Integer>> set=map.entrySet();
+	for (Map.Entry<Long,Integer> x:set){
+	    if (x.getValue()>max){
+	        max=x.getValue();
+	        key=x.getKey();
+	    }
+	}
+	System.out.print(key+" "+max);
+}	
+}
+//C2: HashMap //O(n)
+import java.util.*;
+import java.util.Map.Entry;
+public class Main{
+
+public static void main(String[] args){
+	Scanner sc=new Scanner(System.in);
+	int n=sc.nextInt();
+	long[] a=new long[n];
+	HashMap<Long,Integer> map=new HashMap<Long,Integer>();
+	for (int i=0; i<n; i++) {a[i]=sc.nextInt();
+	if (map.containsKey(a[i])){
+	    int x=map.get(a[i]);
+	    x++;
+	    map.put(a[i],x);
+	}
+	else map.put(a[i],1);
+	}
+	//TreeMap<Integer,Integer> map=new TreeMap<Integer,Integer>();
+	int max=-(int)1e9;
+	long key=0;
+	Set<Map.Entry<Long,Integer>> set=map.entrySet();
+	for (Map.Entry<Long,Integer> x:set){
+	    if (x.getValue()>max){
+	        max=x.getValue();
+	        key=x.getKey();
+	    }
+	    else if (x.getValue()==max){
+	        if (x.getKey()<key){
+	            key=x.getKey();
+	        }
+	    }
+	}
+	System.out.print(key+" "+max);
+}	
+}
